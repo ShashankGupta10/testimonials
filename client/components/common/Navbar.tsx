@@ -6,7 +6,7 @@ import { SignedOut } from '@clerk/nextjs'
 
 const Navbar = () => {
   return (
-    <header className="relative py-4 md:py-6">
+    <header className="relative py-4 md:py-6 shadow-sm">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
