@@ -8,21 +8,24 @@ const TestimonialCard = ({ formData }: { formData: SpaceType }) => (
         <span className="text-white text-3xl">👍</span>
       </div>
     </div>
-
-    <h2 className="text-center text-2xl font-semibold mb-2">
+    <div className="text-center text-2xl font-semibold mb-2 break-words">
       {formData.spaceName}
-    </h2>
+    </div>
 
-    <h2 className="text-center text-2xl font-semibold mb-2">
+    <p className="text-center text-2xl font-semibold mb-2 break-words">
       {formData.headerTitle}
-    </h2>
-    <p className="text-center text-gray-dark mb-6">{formData.customMessage}</p>
+    </p>
+    <span className="text-center text-gray-dark mb-6 break-words">
+      {formData.customMessage}
+    </span>
 
     <div className="mb-4">
       <h3 className="text-gray-dark font-semibold">QUESTIONS</h3>
       <ul className="list-disc list-inside text-black">
         {formData.questions.map((question, index) => (
-          <li key={index}>{question}</li>
+          <div key={index}>
+            <li>{question}</li>
+          </div>
         ))}
       </ul>
     </div>

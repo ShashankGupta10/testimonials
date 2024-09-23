@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { spaceSchema, SpaceType } from "@appTypes"
 import { toast } from 'react-toastify'
+
 export const useCreateSpace = () => {
   return useMutation({
     mutationFn: fetchData,
