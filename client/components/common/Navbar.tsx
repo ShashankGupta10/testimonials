@@ -1,8 +1,7 @@
 import React from 'react'
 import LinkButton from './LinkButton'
 import { navs } from '@/constants/hero'
-import { SignedIn, UserButton, UserProfile } from '@clerk/nextjs'
-import { SignedOut } from '@clerk/nextjs'
+import { SignedIn, UserButton, SignedOut } from '@clerk/nextjs'
 
 const Navbar = () => {
   return (
