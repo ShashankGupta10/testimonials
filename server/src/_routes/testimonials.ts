@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createTestimonial, getTestimonials, selectTestimonials } from '../controller/testimonials.controller';
+import { createTestimonial, getTestimonials, selectTestimonials, selectedTestimonials } from '../controller/testimonials.controller';
 import { authMiddleware } from '../middlewares/auth';
 
 const router = Router();
@@ -7,5 +7,6 @@ const router = Router();
 router.post('/add', authMiddleware, createTestimonial);
 router.get('/get', authMiddleware, getTestimonials);
 router.post('/select', authMiddleware, selectTestimonials);
+router.get('/selectedTestimonials', selectedTestimonials);
 
 export default router;

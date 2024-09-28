@@ -4,14 +4,21 @@ import { useGetSpaces } from '@/hooks/useGetSpaces'
 import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 import { BiMessage, BiVideo } from 'react-icons/bi'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { HiDotsVertical } from 'react-icons/hi'
+import EmbedModal from '../embedModal'
 
 const Spaces = () => {
   const { data, error, isLoading } = useGetSpaces()
   const router = useRouter()
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [embedModalOpen, setEmbedModalOpen] = useState(false)
 
+  useEffect(() => {
+    if (openDropdown) {
+      setOpenDropdown(null)
+    }
+  }, [embedModalOpen])
   const handleDropdownToggle = (spaceId: string) => {
     setOpenDropdown(openDropdown === spaceId ? null : spaceId)
   }
@@ -57,9 +64,20 @@ const Spaces = () => {
                     >
                       Preview
                     </li>
+                    <li
+                      className="p-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => setEmbedModalOpen(true)}
+                    >
+                      Embed
+                    </li>
                   </ul>
                 </div>
               )}
+              <EmbedModal
+                open={embedModalOpen}
+                setOpen={setEmbedModalOpen}
+                spaceId={space.id}
+              />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">

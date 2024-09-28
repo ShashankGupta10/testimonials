@@ -54,3 +54,14 @@ export const selectTestimonials = async (req: Request, res: Response) => {
 
     res.status(200).json({ success: true, message: "Testimonials selected successfully" });
 }
+
+export const selectedTestimonials = async (req: Request, res: Response) => {
+    const spaceId = req.query.spaceId as string;
+    const testimonials = await prisma.testimonials.findMany({
+        where: {
+            spaceId,
+            selected: true
+        }
+    });
+    res.status(200).json({ success: true, data: testimonials });
+}
