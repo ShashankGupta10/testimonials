@@ -1,7 +1,6 @@
 import React from 'react'
 import LinkButton from './LinkButton'
 import { navs } from '@/constants/hero'
-import { SignedIn, UserButton, SignedOut } from '@clerk/nextjs'
 
 const Navbar = () => {
   return (
@@ -51,15 +50,10 @@ const Navbar = () => {
               ))}
             </div>
             <div className="w-px h-5 bg-gray-300"></div>
-            <SignedOut>
-              <LinkButton href="/sign-in" variant={'outline'}>
-                Login
-              </LinkButton>
-              <LinkButton href="/sign-up">Create free account</LinkButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            <LinkButton href="/login" variant={'outline'}>
+              Login
+            </LinkButton>
+            <LinkButton href="/signup">Create free account</LinkButton>
           </div>
         </div>
       </div>

@@ -13,16 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum ExtraInfoEnum {
-  NAME
-  SOCIAL
-  EMAIL
-}
-
 model User {
   id        String   @id @default(cuid())
   username  String   @unique
-  password  String?
+  password  String
   name      String
   spaces    Space[]
   createdAt DateTime @default(now())
@@ -30,15 +24,13 @@ model User {
 }
 
 model Space {
-  id            String          @id @default(cuid())
+  id            String         @id @default(cuid())
   spaceName     String
   headerTitle   String
   customMessage String
   questions     String[]
-  extraInfo     ExtraInfoEnum   @default(NAME)
-  stars         Boolean
-  User          User?           @relation(fields: [userId], references: [id])
-  userId        String?
+  User          User?          @relation(fields: [userId], references: [id])
+  userId        String
   testimonials  Testimonials[]
 }
 
@@ -46,7 +38,9 @@ model Testimonials {
   id                 String  @id @default(cuid())
   testimonialMessage String
   testimonialVideo   String
+  name               String
   companyName        String
   spaceId            String?
   Space              Space?  @relation(fields: [spaceId], references: [id])
+  selected           Boolean @default(false)
 }

@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+import { hostname } from 'os';
 import path from 'path';
 import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -13,6 +14,10 @@ const nextConfig = {
             },
             {
                 hostname: 'firebasestorage.googleapis.com',
+                protocol: 'https',
+            },
+            {
+                hostname: 'picsum.photos',
                 protocol: 'https',
             }
         ]

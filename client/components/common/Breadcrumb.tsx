@@ -17,12 +17,19 @@ const Hamburger = () => {
     .map((param) => param.charAt(0).toUpperCase() + param.slice(1))
     .slice(1)
 
-    return (
+  return (
     <Breadcrumb>
       <BreadcrumbList>
         {formattedParams.map((param, index) => (
           <BreadcrumbItem key={index}>
-            <BreadcrumbLink href={`/${param.toLowerCase()}`}>
+            <BreadcrumbLink
+              href={`
+                /${formattedParams
+                  .slice(0, index + 1)
+                  .join('/')
+                  .toLowerCase()}
+              `}
+            >
               {param}
             </BreadcrumbLink>
           </BreadcrumbItem>

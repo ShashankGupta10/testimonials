@@ -1,5 +1,5 @@
 import Navbar from '@/components/common/Navbar'
-import Hamburger from '@/components/common/Hamburger'
+import Hamburger from '@/components/common/Breadcrumb'
 
 export default function AppLayout({
   children,
@@ -10,7 +10,7 @@ export default function AppLayout({
     <>
       <Navbar />
       <div className="flex">
-        <div className='p-8 w-full flex flex-col gap-4'>
+        <div className='p-8 w-full flex flex-col gap-4 h-[89vh]'>
           <Hamburger />
           {children}
         </div>

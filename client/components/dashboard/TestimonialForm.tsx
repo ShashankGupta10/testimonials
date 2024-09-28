@@ -121,39 +121,6 @@ const TestimonialForm = ({
             Add Question
           </Button>
         </div>
-        {/* Collect Star Ratings */}
-        <div className="flex gap-2 justify-between items-center w-full py-4">
-          <Label htmlFor="collect-star" className="w-64">
-            Collect Star Ratings
-          </Label>
-          <Switch
-            id="collect-star"
-            name="stars"
-            checked={formData.stars}
-            onCheckedChange={(e) => setFormData({ ...formData, stars: e })}
-          />
-        </div>
-        {/* Collect Extra Info */}
-        <div className="flex gap-2 justify-between items-center w-full">
-          <Label htmlFor="extra-info" className="w-64">
-            Collect Extra Info
-          </Label>
-          <Select
-            onValueChange={(e: 'NAME' | 'EMAIL' | 'SOCIAL') =>
-              setFormData({ ...formData, extraInfo: e })
-            }
-            value={formData.extraInfo}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select info type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="EMAIL">Email</SelectItem>
-              <SelectItem value="SOCIAL">Social Link</SelectItem>
-              <SelectItem value="NAME">Name</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
       </div>
 
       <DialogFooter>

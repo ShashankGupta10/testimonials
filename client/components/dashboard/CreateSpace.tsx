@@ -3,28 +3,8 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button } from '../ui/button'
 import { FaPlus } from 'react-icons/fa6'
-import { BiTrash } from 'react-icons/bi'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
-import { Switch } from '../ui/switch'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select'
-import TestimonialCard from './TestimonialPreview'
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import TestimonialPreview from './TestimonialPreview'
 import { useCreateSpace } from '@/hooks/useCreateSpace'
 import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 import { SpaceType } from '@appTypes'
@@ -40,11 +20,8 @@ const CreateNewSpace = () => {
       'How has [our product / service] helped you?',
       'What is the best thing about [our product / service]?',
     ],
-    stars: false,
-    extraInfo: 'NAME',
   })
-  const { mutate, data, error, isPending, isIdle, isSuccess, isError } =
-    useCreateSpace()
+  const { mutate, error, isPending } = useCreateSpace()
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
@@ -54,7 +31,7 @@ const CreateNewSpace = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const data = mutate(formData)
+    mutate(formData)
   }
 
   return (
@@ -69,9 +46,14 @@ const CreateNewSpace = () => {
             </DialogTrigger>
             <DialogContent className="max-w-5xl flex flex-col justify-between">
               <div className="grid xl:grid-cols-4 md:grid-cols-3 gap-8">
-                <TestimonialForm formData={formData} setFormData={setFormData} handleChange={handleChange} handleSubmit={handleSubmit} />
+                <TestimonialForm
+                  formData={formData}
+                  setFormData={setFormData}
+                  handleChange={handleChange}
+                  handleSubmit={handleSubmit}
+                />
                 <div className="col-span-1 xl:col-span-2 flex items-center">
-                  <TestimonialCard formData={formData} />
+                  <TestimonialPreview formData={formData} isForm={false} />
                 </div>
               </div>
             </DialogContent>

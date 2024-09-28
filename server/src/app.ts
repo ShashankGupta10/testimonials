@@ -1,21 +1,27 @@
 import express from "express";
+import cookieParser from "cookie-parser"
 import cors from "cors"
 
-import userRouter from "./_routes/user"
+import userRouter from "./_routes/auth"
 import spacesRouter from "./_routes/spaces"
+import testimonialRouter from "./_routes/testimonials"
 
 const app = express();
 app.use(express.json());
-app.use(cors())
+app.use(cookieParser())
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}))
 
-app.use("/api/v1/user", userRouter)
+app.use("/api/v1/auth", userRouter)
 app.use("/api/v1/spaces", spacesRouter)
+app.use("/api/v1/testimonials", testimonialRouter)
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error(err.stack)
     res.status(500).send('Something broke!')
 })
-
 
 app.listen(5000, () => {
     console.log("Server is running on http://localhost:5000");
