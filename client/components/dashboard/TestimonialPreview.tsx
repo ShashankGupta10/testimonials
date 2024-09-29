@@ -1,6 +1,6 @@
 'use client'
 import { SpaceType } from '@appTypes'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import RecordVideoModal from '../getTestimonial/RecordVideoModal'
 import SendTextModal from '@/components/getTestimonial/SendTextModal'
 
@@ -27,7 +27,7 @@ const TestimonialPreview = ({
 
   return (
     <div
-      className={`bg-white text-black p-6 rounded-lg shadow-lg mx-auto ${isForm ? 'max-w-3xl' : 'w-full'}`}
+      className={`bg-white text-black p-6 rounded-lg shadow-lg mx-auto ${isForm ? 'max-w-3xl' : 'w-full'} my-auto`}
     >
       <div className="flex justify-center mb-4">
         <div className="bg-black p-4 rounded-full">

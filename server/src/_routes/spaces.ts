@@ -5,6 +5,6 @@ const router = Router();
 
 router.post("/createSpace", authMiddleware, createSpace);
 router.get("/getSpaces", authMiddleware, getSpaces);
-router.get("/getSpace/:spaceId", authMiddleware, getSpace);
+router.get("/getSpace/:spaceId", getSpace);
 
 export default router;

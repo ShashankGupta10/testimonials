@@ -1,8 +1,19 @@
-import React from 'react'
+'use client'
+import { useCheckAuth } from '@/hooks/useCheckAuth'
+import { Button } from '../ui/button'
+import { useLogout } from '@/hooks/useLogout'
+import { useRouter } from 'next/navigation'
 import LinkButton from './LinkButton'
-import { navs } from '@/constants/hero'
 
 const Navbar = () => {
+  const { data } = useCheckAuth()
+  const { mutate } = useLogout()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    mutate()
+    router.push('/')
+  }
   return (
     <header className="relative py-4 md:py-6 shadow-sm">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -37,23 +48,16 @@ const Navbar = () => {
           </div>
 
           <div className="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-10">
-            <div className="flex items-center space-x-6">
-              {navs.left.map((nav, idx) => (
-                <LinkButton
-                  key={idx}
-                  href={`${nav.toLowerCase()}`}
-                  variant="none"
-                  className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-indigo-600 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
-                >
-                  {nav}
+            {!data ? (
+              <>
+                <LinkButton href="/login" variant={'outline'}>
+                  Login
                 </LinkButton>
-              ))}
-            </div>
-            <div className="w-px h-5 bg-gray-300"></div>
-            <LinkButton href="/login" variant={'outline'}>
-              Login
-            </LinkButton>
-            <LinkButton href="/signup">Create free account</LinkButton>
+                <LinkButton href="/signup">Create free account</LinkButton>
+              </>
+            ) : (
+              <Button onClick={handleLogout}>Logout</Button>
+            )}
           </div>
         </div>
       </div>

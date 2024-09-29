@@ -1,14 +1,12 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { usePathname } from 'next/navigation'
 
 const Hamburger = () => {
   const params = usePathname()

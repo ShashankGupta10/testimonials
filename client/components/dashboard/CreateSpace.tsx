@@ -1,14 +1,14 @@
 'use client'
 
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Button } from '../ui/button'
 import { FaPlus } from 'react-icons/fa6'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
-import TestimonialPreview from './TestimonialPreview'
 import { useCreateSpace } from '@/hooks/useCreateSpace'
-import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 import { SpaceType } from '@appTypes'
+import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 import TestimonialForm from './TestimonialForm'
+import TestimonialPreview from './TestimonialPreview'
 
 const CreateNewSpace = () => {
   const [formData, setFormData] = useState<SpaceType>({

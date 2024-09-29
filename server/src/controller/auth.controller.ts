@@ -43,3 +43,12 @@ export const login = async (req: Request, res: Response) => {
     });
     res.status(200).json({ message: "Logged in successfully" });
 }
+
+export const logout = async (req: Request, res: Response) => {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logged out successfully" });
+}
+
+export const checkAuth = async (req: Request, res: Response) => {
+    res.status(200).json({ message: "Authenticated", success: true });
+}

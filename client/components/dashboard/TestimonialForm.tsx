@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, FormEvent } from 'react'
+import { ChangeEvent, Dispatch, FormEvent } from 'react'
 import { DialogFooter, DialogHeader } from '../ui/dialog'
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog'
 import { Label } from '@radix-ui/react-label'
@@ -6,14 +6,6 @@ import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { BiTrash } from 'react-icons/bi'
 import { Button } from '../ui/button'
-import { Switch } from '../ui/switch'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select'
 import { SpaceType } from '@appTypes'
 
 const TestimonialForm = ({

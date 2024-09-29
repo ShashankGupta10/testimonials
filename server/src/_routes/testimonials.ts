@@ -4,7 +4,7 @@ import { authMiddleware } from '../middlewares/auth';
 
 const router = Router();
 
-router.post('/add', authMiddleware, createTestimonial);
+router.post('/add', createTestimonial);
 router.get('/get', authMiddleware, getTestimonials);
 router.post('/select', authMiddleware, selectTestimonials);
 router.get('/selectedTestimonials', selectedTestimonials);

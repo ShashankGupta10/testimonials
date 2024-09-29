@@ -10,7 +10,7 @@ export default function AppLayout({
     <>
       <Navbar />
       <div className="flex">
-        <div className='p-8 w-full flex flex-col gap-4 h-[89vh]'>
+        <div className="p-8 w-full flex flex-col gap-4 h-[89vh]">
           <Hamburger />
           {children}
         </div>

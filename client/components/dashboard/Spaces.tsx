@@ -1,18 +1,20 @@
 'use client'
 
 import { useGetSpaces } from '@/hooks/useGetSpaces'
-import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 import { BiMessage, BiVideo } from 'react-icons/bi'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { HiDotsVertical } from 'react-icons/hi'
+import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 import EmbedModal from '../embedModal'
+import EmbedFormModal from '../embedFormModal'
 
 const Spaces = () => {
   const { data, error, isLoading } = useGetSpaces()
   const router = useRouter()
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [embedModalOpen, setEmbedModalOpen] = useState(false)
+  const [embedFormModalOpen, setEmbedFormModalOpen] = useState(false)
 
   useEffect(() => {
     if (openDropdown) {
@@ -39,10 +41,8 @@ const Spaces = () => {
               >
                 <HiDotsVertical className="text-gray-500 w-6 h-6" />
               </button>
-
-              {/* Dropdown Menu */}
               {openDropdown === space.id && (
-                <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-10">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-10">
                   <ul>
                     <li
                       className="p-2 hover:bg-gray-100 cursor-pointer"
@@ -54,7 +54,7 @@ const Spaces = () => {
                     </li>
                     <li
                       className="p-2 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => router.push(`/dashboard/${space.id}`)}
+                      onClick={() => router.push(`/${space.id}`)}
                     >
                       Form
                     </li>
@@ -68,7 +68,13 @@ const Spaces = () => {
                       className="p-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => setEmbedModalOpen(true)}
                     >
-                      Embed
+                      Embed Testimonials
+                    </li>
+                    <li
+                      className="p-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => setEmbedFormModalOpen(true)}
+                    >
+                      Embed Form
                     </li>
                   </ul>
                 </div>
@@ -76,6 +82,11 @@ const Spaces = () => {
               <EmbedModal
                 open={embedModalOpen}
                 setOpen={setEmbedModalOpen}
+                spaceId={space.id}
+              />
+              <EmbedFormModal
+                embedFormModalOpen={embedFormModalOpen}
+                setEmbedFormModalOpen={setEmbedFormModalOpen}
                 spaceId={space.id}
               />
             </div>
