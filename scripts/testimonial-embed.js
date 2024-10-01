@@ -92,13 +92,21 @@
         border-radius: 8px;
         object-fit: cover;
       }
+
+      .no-testimonial {
+        text-align: center;
+        font-size: 20px;
+        color: #555;
+      }
     `;
     document.head.appendChild(style);
 
     // Fetch testimonial data from API
     fetch(`http://localhost:5000/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`)
       .then(response => response.json())
+      .catch(error => console.log(error))
       .then(data => {
+        console.log(data);
         const testimonials = data.data || [];
         const container = document.createElement('div');
         container.className = 'testimonial-container';
@@ -112,7 +120,12 @@
         // Create testimonial grid
         const grid = document.createElement('div');
         grid.className = 'testimonial-grid';
-
+        if (testimonials.length === 0) {
+          const noTestimonial = document.createElement('p');
+          noTestimonial.className = 'no-testimonial';
+          noTestimonial.textContent = 'No testimonials available :(';
+          container.appendChild(noTestimonial);
+        }
         testimonials.forEach(testimonial => {
           // Create card
           const card = document.createElement('div');
@@ -177,7 +190,7 @@
         targetDiv.appendChild(container);
       })
       .catch(error => {
-        console.error('Error fetching testimonials:', error);
+        console.log(error);
       });
   });
 

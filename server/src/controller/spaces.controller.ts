@@ -44,6 +44,7 @@ export const getSpace = async (req: Request, res: Response) => {
 
 export const deleteSpace = async (req: Request, res: Response) => {
     const spaceId = req.body.spaceId;
+    console.log(req.body);
     await prisma.space.delete({
         where: {
             id: spaceId

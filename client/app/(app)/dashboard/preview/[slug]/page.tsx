@@ -26,6 +26,11 @@ const TestimonialCard = ({ params }: { params: { slug: string } }) => {
           What Our Customers Say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {data?.length === 0 && (
+            <div className="col-span-3 my-auto text-center text-gray-500">
+              No testimonials yet :(
+            </div>
+          )}
           {data?.map((testimonial, index) => (
             <Card className="w-full max-w-md mx-auto" key={index}>
               <CardContent className="p-6">
@@ -43,10 +48,10 @@ const TestimonialCard = ({ params }: { params: { slug: string } }) => {
                       <StarRating rating={4} />
                     </div>
                   </div>
-                  <div className='flex flex-col items-center mb-4'>
+                  <div className="flex flex-col items-center mb-4">
                     <p></p>
                     <p className="text-gray-600 text-xs text-wrap text-start my-auto">
-                      ~ {testimonial.companyName} 
+                      ~ {testimonial.companyName}
                     </p>
                   </div>
                 </div>

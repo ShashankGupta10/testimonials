@@ -1,35 +1,35 @@
-'use client';
+'use client'
 
-import { useGetSpaces } from '@/hooks/useGetSpaces';
-import { BiMessage, BiVideo } from 'react-icons/bi';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { HiDotsVertical } from 'react-icons/hi';
-import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper';
-import EmbedModal from '../embedModal';
-import EmbedFormModal from '../embedFormModal';
-import { useDeleteSpace } from '@/hooks/useDeleteSpace';
+import { useGetSpaces } from '@/hooks/useGetSpaces'
+import { BiMessage, BiVideo } from 'react-icons/bi'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { HiDotsVertical } from 'react-icons/hi'
+import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
+import EmbedModal from '../embedModal'
+import EmbedFormModal from '../embedFormModal'
+import { useDeleteSpace } from '@/hooks/useDeleteSpace'
 
 const Spaces = () => {
-  const router = useRouter();
-  const { mutate } = useDeleteSpace();
-  const { data, error, isLoading } = useGetSpaces();
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [embedModalOpen, setEmbedModalOpen] = useState(false);
-  const [embedFormModalOpen, setEmbedFormModalOpen] = useState(false);
+  const router = useRouter()
+  const { mutate } = useDeleteSpace()
+  const { data, error, isLoading } = useGetSpaces()
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [embedModalOpen, setEmbedModalOpen] = useState(false)
+  const [embedFormModalOpen, setEmbedFormModalOpen] = useState(false)
 
   useEffect(() => {
     if (openDropdown) {
-      setOpenDropdown(null);
+      setOpenDropdown(null)
     }
-  }, [embedModalOpen]);
+  }, [embedModalOpen])
 
   const handleDropdownToggle = (spaceId: string) => {
-    setOpenDropdown(openDropdown === spaceId ? null : spaceId);
-  };
+    setOpenDropdown(openDropdown === spaceId ? null : spaceId)
+  }
 
   const deleteSpace = async (spaceId: string) => {
-    mutate(spaceId);
+    mutate(spaceId)
   }
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
@@ -41,7 +41,7 @@ const Spaces = () => {
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
               {/* Image Section */}
-              <div className="flex justify-center items-center lg:col-span-3 md:col-span-12">
+              <div className="flex justify-center items-center lg:col-span-3 col-span-12">
                 <img
                   src="https://picsum.photos/300/150"
                   alt="Space"
@@ -49,7 +49,7 @@ const Spaces = () => {
                 />
               </div>
 
-              <div className="md:col-span-9 space-y-4 relative">
+              <div className="col-span-12 lg:col-span-9 space-y-4 relative">
                 <div className="flex justify-between items-center">
                   <h2 className="text-3xl font-bold text-gray-900">
                     {space.spaceName}
@@ -151,7 +151,7 @@ const Spaces = () => {
         ))}
       </div>
     </LoadingAndErrorWrapper>
-  );
-};
+  )
+}
 
-export default Spaces;
+export default Spaces

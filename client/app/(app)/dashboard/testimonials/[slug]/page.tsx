@@ -54,6 +54,11 @@ const Page = () => {
           What Our Customers Say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {testimonials?.length === 0 && (
+            <div className="col-span-3 my-auto text-center text-gray-500">
+              No testimonials found :(
+            </div>
+          )}
           {testimonials?.map((testimonial, index) => (
             <Card
               className={`w-full max-w-md mx-auto ${selectedTestimonials.find((test) => test === testimonial.id) ? 'ring-2 ring-indigo-600' : ''}`}
@@ -100,9 +105,8 @@ const Page = () => {
                 <div className="flex items-center mt-4 gap-3">
                   <RadioGroup>
                     <RadioGroupItem
-                      
                       id={`radio-${testimonial.id}`}
-                      value={"default"}
+                      value={'default'}
                       checked={selectedTestimonials.includes(testimonial.id!)}
                       onClick={() => handleSelectTestimonial(testimonial.id!)}
                       disabled={
@@ -128,7 +132,7 @@ const Page = () => {
         <Button
           onClick={handleSubmit}
           disabled={selectedTestimonials.length === 0}
-          className='mb-4 w-full'
+          className="mb-4 w-full"
           // className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-md font-medium"
         >
           Submit Selected Testimonials

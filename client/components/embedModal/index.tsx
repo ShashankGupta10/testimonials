@@ -31,7 +31,7 @@ const EmbedModal = ({ open, setOpen, spaceId }: EmbedModalProps) => {
           <ol className="list-decimal list-inside space-y-4 text-sm text-gray-700">
             <li>Copy the embed code below.</li>
             <div className="relative bg-gray-100 rounded-md p-4 text-sm">
-              <pre className="overflow-auto font-mono whitespace-pre-wrap">
+              <pre className="overflow-auto font-mono whitespace-pre-wrap break-all">
                 {`<script src="https://cdn.jsdelivr.net/gh/ShashankGupta10/testimonials@main/scripts/testimonial-embed.js" data-space-id="${spaceId}"></script>`}
               </pre>
             </div>

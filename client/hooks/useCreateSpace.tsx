@@ -10,6 +10,7 @@ export const useCreateSpace = () => {
     mutationFn: fetchData,
     onSuccess: () => {
       router.refresh()
+      toast.success('Space created successfully')
     }
   })
 }

@@ -5,6 +5,7 @@ import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 
 const Stats = () => {
   const { data, error, isLoading } = useGetStats()
+  console.log(data)
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -33,7 +34,9 @@ const Stats = () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Video Testimonials</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Video Testimonials
+            </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -58,7 +61,9 @@ const Stats = () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Text testimonials</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Text testimonials
+            </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -74,7 +79,9 @@ const Stats = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data?.writtenTestimonials}</div>
+            <div className="text-2xl font-bold">
+              {data?.writtenTestimonials}
+            </div>
             <p className="text-xs text-muted-foreground">
               +19% from last month
             </p>
@@ -97,7 +104,9 @@ const Stats = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data?.bestSpace}</div>
+            <div className="text-2xl font-bold">
+              {data?.bestSpace === '' ? 'No best space' : data?.bestSpace}
+            </div>
             <p className="text-xs text-muted-foreground">
               +201 since last hour
             </p>
