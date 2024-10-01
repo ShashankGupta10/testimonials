@@ -47,6 +47,7 @@
     "postcss": "^8",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "packages": "file:../packages/index.d.ts"
   }
 }

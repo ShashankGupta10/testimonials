@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@appTypes": ["./../packages/dist/index.d.ts"],
+      "@appTypes": ["./../packages/src/index.ts"],
       "@/*": ["./*"]
     }
   },
