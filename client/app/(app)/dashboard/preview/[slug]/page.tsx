@@ -1,16 +1,13 @@
 'use client'
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Star } from 'lucide-react'
+import LoadingAndErrorWrapper from '@/components/common/LoadingAndErrorWrapper'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Card, CardContent } from '@/components/ui/card'
+import { useGetSelectedTestimonials } from '@/hooks/useGetSelectedTestimonials'
+import { Star, StarHalf, User } from 'lucide-react'
 import Image from 'next/image'
 
-interface TestimonialProps {
+export interface TestimonialProps {
   name: string
   companyName: string
   testimonialMessage?: string
@@ -19,82 +16,95 @@ interface TestimonialProps {
   rating?: number
 }
 
-const TestimonialCard = () => {
-  const data: TestimonialProps[] = [
-    {
-      name: 'Anna Deynah',
-      companyName: 'UX Designer',
-      testimonialMessage:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab hic tenetur.',
-      profileImage: 'https://picsum.photos/150',
-      rating: 5,
-    },
-    {
-      name: 'John Doe',
-      companyName: 'Web Developer',
-      testimonialMessage:
-        'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid commodi.',
-      profileImage: 'https://picsum.photos/150',
-      rating: 4,
-    },
-    {
-      name: 'Maria Kate',
-      companyName: 'Photographer',
-      testimonialMessage:
-        'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.',
-      testimonialVideo: 'https://www.w3schools.com/html/mov_bbb.mp4',
-      rating: 5,
-    },
-  ]
+const TestimonialCard = ({ params }: { params: { slug: string } }) => {
+  const { data, isLoading, error } = useGetSelectedTestimonials(params.slug)
+  console.log(data)
+  return (
+    <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
+      <div className="container mx-auto py-12">
+        <h2 className="text-3xl font-bold text-center mb-8">
+          What Our Customers Say
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {data?.map((testimonial, index) => (
+            <Card className="w-full max-w-md mx-auto" key={index}>
+              <CardContent className="p-6">
+                <div className="flex justify-between">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <Avatar className="w-12 h-12">
+                      <AvatarFallback>
+                        <User className="w-6 h-6" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        {testimonial.name}
+                      </h3>
+                      <StarRating rating={4} />
+                    </div>
+                  </div>
+                  <div className='flex flex-col items-center mb-4'>
+                    <p></p>
+                    <p className="text-gray-600 text-xs text-wrap text-start my-auto">
+                      ~ {testimonial.companyName} 
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  {testimonial.testimonialMessage}
+                </p>
+                {testimonial.testimonialVideo ? (
+                  <div className="aspect-w-16 aspect-h-9 mb-4">
+                    <video
+                      src={testimonial.testimonialVideo}
+                      controls
+                      className="rounded-lg w-full h-full object-cover"
+                    />
+                  </div>
+                ) : !testimonial.testimonialVideo ? (
+                  <div className="aspect-w-16 aspect-h-9 mb-4">
+                    <Image
+                      src={'https://picsum.photos/200/100'}
+                      alt={`${name}'s testimonial`}
+                      width={400}
+                      height={225}
+                      layout="responsive"
+                      objectFit="cover"
+                      className="rounded-lg"
+                    />
+                  </div>
+                ) : null}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </LoadingAndErrorWrapper>
+  )
+}
+
+function StarRating({ rating }: { rating: number }) {
+  const fullStars = Math.floor(rating)
+  const hasHalfStar = rating % 1 !== 0
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-auto">
-      {data.map((testimonial, idx) => (
-        <Card
-          key={idx}
-          className="bg-white text-black border-gray-200 rounded-xl shadow-lg p-6"
-        >
-          <CardHeader className="flex flex-col items-center space-y-4">
-            {testimonial.testimonialVideo ? (
-                <video
-                  src={testimonial.testimonialVideo}
-                  className="object-cover h-32"
-                  loop
-                  autoPlay
-                  muted
-                  controls
-                />
-            ) : (
-              <Image
-                src={testimonial.profileImage || 'https://picsum.photos/150'}
-                alt={testimonial.name}
-                width={128}
-                height={128}
-                className="rounded-full w-32 h-32 object-cover"
-              />
-            )}
-            <CardTitle className="text-center text-lg font-bold">
-              {testimonial.name}
-            </CardTitle>
-            <CardDescription className="text-center text-sm text-gray-500">
-              {testimonial.companyName}
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent className="text-center">
-            <p className="text-gray-700 mb-4">
-              {testimonial.testimonialMessage}
-            </p>
-
-            {/* Display star rating */}
-            <div className="flex justify-center space-x-1">
-              {Array.from({ length: testimonial.rating || 0 }).map((_, i) => (
-                <Star key={i} className="text-yellow-400 h-5 w-5" />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="flex">
+      {[...Array(5)].map((_, i) => {
+        if (i < fullStars) {
+          return (
+            <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+          )
+        } else if (i === fullStars && hasHalfStar) {
+          return (
+            <StarHalf
+              key={i}
+              className="w-5 h-5 fill-yellow-400 text-yellow-400"
+            />
+          )
+        } else {
+          return <Star key={i} className="w-5 h-5 text-gray-300" />
+        }
+      })}
     </div>
   )
 }

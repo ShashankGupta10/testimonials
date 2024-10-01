@@ -39,17 +39,14 @@ export default function Hero() {
 
                   <p className="mt-4 text-lg text-gray-900 lg:mt-0 lg:ml-4 font-pj">
                     Join with{' '}
-                    <span className="font-bold">4600+ Developers</span> and
+                    <span className="font-bold">4600+ Companies</span> and
                     start getting feedbacks right now
                   </p>
                 </div>
               </div>
 
               <div className="mt-8 sm:flex sm:items-center sm:justify-center lg:justify-start sm:space-x-5 lg:mt-12">
-                <LinkButton href='/' size={'xl'}>Give Feedback</LinkButton>
-                <LinkButton href='/' variant={'ghost'} size={'xl'}>
-                  Learn More
-                </LinkButton>
+                <LinkButton href='/login' size={'xl'}>Get started!</LinkButton>
               </div>
             </div>
 

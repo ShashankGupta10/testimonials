@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { revalidatePath } from 'next/cache'
 import { toast } from 'react-toastify'
 
 export const useSelectTestimonials = () => {
@@ -24,7 +25,10 @@ export const useSelectTestimonials = () => {
       }
       const responseData: { success: boolean; message: string } =
         await response.json()
-      if (responseData.success) toast.success(responseData.message)
+      if (responseData.success) {
+        toast.success(responseData.message)
+        // revalidatePath(`/dashboard/testimonials/${data.spaceId}`, 'page')
+      }
       return responseData
     },
   })

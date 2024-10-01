@@ -34,16 +34,13 @@ const TestimonialPreview = ({
           <span className="text-white text-3xl">👍</span>
         </div>
       </div>
-      <div className="text-center text-2xl font-semibold mb-2 break-words">
-        {formData.spaceName}
-      </div>
 
       <p className="text-center text-2xl font-semibold mb-2 break-words">
         {formData.headerTitle}
       </p>
-      <span className="text-center text-gray-dark mb-6 break-words">
+      <p className="text-center text-gray-dark mb-6 break-words">
         {formData.customMessage}
-      </span>
+      </p>
 
       <div className="mb-4">
         <h3 className="text-gray-dark font-semibold">QUESTIONS</h3>

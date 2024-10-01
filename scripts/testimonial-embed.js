@@ -1,161 +1,195 @@
 (function () {
-    // Helper function to create and inject testimonials
-    function createTestimonialWidget(spaceId) {
-        const container = document.getElementById(`testimonials-${spaceId}`);
-        if (!container) {
-            console.error(`No container found for testimonials-${spaceId}`);
-            return;
-        }
+  // Load the widget when the DOM is ready
+  document.addEventListener('DOMContentLoaded', function () {
+    const spaceId = document.querySelector('script[data-space-id]').getAttribute('data-space-id');
+    const targetDiv = document.getElementById(`testimonials-${spaceId}`);
 
-        // Inject CSS styles into the document head
-        const styleTag = document.createElement('style');
-        styleTag.innerHTML = `
-        /* Testimonial card container */
-        .testimonial-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%;
-            gap: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px;
-        }
-        .testimonial-card {
-          border: 1px solid #e5e7eb; /* Light gray border */
-          padding: 20px;
-          margin: 20px;
-          background-color: white;
-          border-radius: 10px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
-          max-width: 350px;
-          text-align: center;
-        }
-  
-        /* Profile images (for photo testimonials) */
-        .testimonial-profile {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          object-fit: cover;
-          margin: 0 auto 15px auto;
-        }
-  
-        /* Video styles (for video testimonials) */
-        .testimonial-video {
-          width: 100%;
-          height: auto;
-          border-radius: 10px;
-        }
-  
-        /* Testimonial text */
-        .testimonial-text {
-          color: #4a4a4a;
-          margin-top: 15px;
-          font-size: 15px;
-          line-height: 1.6;
-        }
-  
-        /* User name and company */
-        .testimonial-user-info {
-          color: #111827;
-          margin-top: 10px;
-          font-weight: bold;
-          font-size: 18px;
-        }
-  
-        .testimonial-job {
-          color: #6b7280; /* Gray text for job title */
-          font-size: 14px;
-          margin-top: 5px;
-        }
-  
-        /* Stars rating styling */
-        .testimonial-stars {
-          color: #f59e0b; /* Yellow color for the stars */
-          margin-top: 10px;
-        }
-      `;
-        document.head.appendChild(styleTag);
+    // Load Inter font
+    const fontLink = document.createElement('link');
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap';
+    fontLink.rel = 'stylesheet';
+    document.head.appendChild(fontLink);
 
-        // Fetch testimonial data from your backend API
-        fetch(`http://localhost:5000/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`)
-            .then(response => response.json())
-            .then(testimonials => {
-                if (!testimonials || testimonials.length === 0) {
-                    container.innerHTML = '<p>No testimonials available.</p>';
-                    return;
-                }
+    // Create and append styles
+    const style = document.createElement('style');
+    style.innerHTML = `
+      * {
+        font-family: 'Inter', sans-serif;
+      }
+      .testimonial-container {
+        padding: 30px;
+        background-color: white;
+        max-width: 1200px;
+        margin: auto;
+      }
+      .testimonial-header {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      .testimonial-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        height: 100%;
+      }
+      .testimonial-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .testimonial-message {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 15px;
+      }
+      .testimonial-avatar {
+        width: 50px;
+        height: 50px;
+        background-color: #ddd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+      }
+      .testimonial-avatar img {
+        border-radius: 50%;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+      .testimonial-user-info {
+        display: flex;
+        align-items: center;
+      }
+      .star {
+        color: #fbbf24;
+        margin-right: 3px;
+      }
+      .star-empty {
+        color: #ddd;
+      }
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 ratio */
+        height: 0;
+        overflow: hidden;
+      }
+      .video-container video, .video-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+    `;
+    document.head.appendChild(style);
 
-                // Create testimonial HTML for each testimonial
-                const parentDiv = document.createElement('div');
-                parentDiv.className = 'testimonial-container';
-                container.appendChild(parentDiv);
-                testimonials.data.forEach(testimonial => {
-                    const testimonialCard = document.createElement('div');
-                    testimonialCard.className = 'testimonial-card';
+    // Fetch testimonial data from API
+    fetch(`http://localhost:5000/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`)
+      .then(response => response.json())
+      .then(data => {
+        const testimonials = data.data || [];
+        const container = document.createElement('div');
+        container.className = 'testimonial-container';
 
-                    // Profile picture or video testimonial
-                    if (testimonial.testimonialVideo) {
-                        const video = document.createElement('video');
-                        video.src = testimonial.testimonialVideo;
-                        video.controls = true;
-                        video.className = 'testimonial-video';
-                        testimonialCard.appendChild(video);
-                    } else {
-                        const img = document.createElement('img');
-                        img.src = testimonial.profilePicture || 'default-image.png'; // Use a default image if no profile picture
-                        img.className = 'testimonial-profile';
-                        testimonialCard.appendChild(img);
-                    }
+        // Create header
+        const header = document.createElement('h1');
+        header.className = 'testimonial-header';
+        header.textContent = 'What Our Customers Say';
+        container.appendChild(header);
 
-                    // Testimonial text
-                    const text = document.createElement('p');
-                    text.innerText = testimonial.testimonialMessage || 'No message available';
-                    text.className = 'testimonial-text';
-                    testimonialCard.appendChild(text);
+        // Create testimonial grid
+        const grid = document.createElement('div');
+        grid.className = 'testimonial-grid';
 
-                    // Name and company
-                    const userInfo = document.createElement('p');
-                    userInfo.innerHTML = `<span class="testimonial-user-info">${testimonial.name}</span>`;
-                    testimonialCard.appendChild(userInfo);
+        testimonials.forEach(testimonial => {
+          // Create card
+          const card = document.createElement('div');
+          card.className = 'testimonial-card';
 
-                    const jobTitle = document.createElement('p');
-                    jobTitle.className = 'testimonial-job';
-                    jobTitle.innerText = testimonial.jobTitle || 'Job title not available';
-                    testimonialCard.appendChild(jobTitle);
+          // Avatar and user info
+          const userInfo = document.createElement('div');
+          userInfo.className = 'testimonial-user-info';
 
-                    // Stars rating (if available)
-                    if (testimonial.rating) {
-                        const stars = document.createElement('div');
-                        stars.className = 'testimonial-stars';
-                        stars.innerHTML = '★'.repeat(testimonial.rating) + '☆'.repeat(5 - testimonial.rating); // Display filled and unfilled stars
-                        testimonialCard.appendChild(stars);
-                    }
+          const avatar = document.createElement('div');
+          avatar.className = 'testimonial-avatar';
+          if (testimonial.profileImage) {
+            const img = document.createElement('img');
+            img.src = testimonial.profileImage;
+            avatar.appendChild(img);
+          } else {
+            avatar.textContent = testimonial.name.charAt(0); // Fallback
+          }
 
-                    parentDiv.appendChild(testimonialCard);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching testimonials:', error);
-                container.innerHTML = '<p>Failed to load testimonials.</p>';
-            });
+          const nameElem = document.createElement('h3');
+          nameElem.textContent = testimonial.name;
+
+          userInfo.appendChild(avatar);
+          userInfo.appendChild(nameElem);
+
+          card.appendChild(userInfo);
+
+          // Star Rating
+          const starRating = document.createElement('div');
+          starRating.innerHTML = generateStarRating(testimonial.rating || 0);
+          card.appendChild(starRating);
+
+          // Testimonial message
+          const message = document.createElement('p');
+          message.className = 'testimonial-message';
+          message.textContent = testimonial.testimonialMessage || '';
+          card.appendChild(message);
+
+          // Video or Image
+          if (testimonial.testimonialVideo) {
+            const videoContainer = document.createElement('div');
+            videoContainer.className = 'video-container';
+            const video = document.createElement('video');
+            video.src = testimonial.testimonialVideo;
+            video.controls = true;
+            videoContainer.appendChild(video);
+            card.appendChild(videoContainer);
+          } else {
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'video-container';
+            const image = document.createElement('img');
+            image.src = 'https://picsum.photos/400/225'; // Placeholder image
+            image.alt = `${testimonial.name}'s testimonial`;
+            imageContainer.appendChild(image);
+            card.appendChild(imageContainer);
+          }
+
+          grid.appendChild(card);
+        });
+
+        container.appendChild(grid);
+        targetDiv.appendChild(container);
+      })
+      .catch(error => {
+        console.error('Error fetching testimonials:', error);
+      });
+  });
+
+  function generateStarRating(rating) {
+    let starHTML = '';
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        starHTML += `<span class="star">★</span>`;
+      } else {
+        starHTML += `<span class="star star-empty">★</span>`;
+      }
     }
-
-    // Automatically execute the script when the DOM is ready
-    document.addEventListener('DOMContentLoaded', function () {
-        const scriptTag = document.querySelector('script[data-space-id]');
-        if (!scriptTag) {
-            console.error('No script tag found with data-space-id');
-            return;
-        }
-
-        const spaceId = scriptTag.getAttribute('data-space-id');
-        if (!spaceId) {
-            console.error('No space ID found in script tag');
-            return;
-        }
-
-        createTestimonialWidget(spaceId);
-    });
+    return starHTML;
+  }
 })();

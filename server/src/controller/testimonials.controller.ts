@@ -61,7 +61,7 @@ export const selectedTestimonials = async (req: Request, res: Response) => {
         where: {
             spaceId,
             selected: true
-        }
-    });
+        },
+    }); 
     res.status(200).json({ success: true, data: testimonials });
 }
