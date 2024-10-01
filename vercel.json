@@ -3,6 +3,10 @@
     {
       "src": "client/package.json",
       "use": "@vercel/next"
+    },
+    {
+      "src": "packages/package.json",
+      "use": "@vercel/node"
     }
   ]
 }
