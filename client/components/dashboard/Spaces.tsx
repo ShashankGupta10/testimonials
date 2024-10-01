@@ -8,9 +8,11 @@ import { HiDotsVertical } from 'react-icons/hi';
 import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper';
 import EmbedModal from '../embedModal';
 import EmbedFormModal from '../embedFormModal';
+import { useDeleteSpace } from '@/hooks/useDeleteSpace';
 
 const Spaces = () => {
   const router = useRouter();
+  const { mutate } = useDeleteSpace();
   const { data, error, isLoading } = useGetSpaces();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [embedModalOpen, setEmbedModalOpen] = useState(false);
@@ -26,6 +28,9 @@ const Spaces = () => {
     setOpenDropdown(openDropdown === spaceId ? null : spaceId);
   };
 
+  const deleteSpace = async (spaceId: string) => {
+    mutate(spaceId);
+  }
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full justify-center items-center">
@@ -44,7 +49,6 @@ const Spaces = () => {
                 />
               </div>
 
-              {/* Name and Content Section */}
               <div className="md:col-span-9 space-y-4 relative">
                 <div className="flex justify-between items-center">
                   <h2 className="text-3xl font-bold text-gray-900">
@@ -95,6 +99,12 @@ const Spaces = () => {
                             onClick={() => setEmbedFormModalOpen(true)}
                           >
                             Embed Form
+                          </li>
+                          <li
+                            className="p-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => deleteSpace(space.id)}
+                          >
+                            Delete Space
                           </li>
                         </ul>
                       </div>
