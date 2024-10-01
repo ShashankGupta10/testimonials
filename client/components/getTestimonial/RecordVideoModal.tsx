@@ -11,7 +11,6 @@ import { Label } from '@radix-ui/react-label'
 import { Input } from '../ui/input'
 import { useAddTestimonial } from '@/hooks/useAddTestimonial'
 import { useParams } from 'next/navigation'
-import axios from 'axios'
 
 interface RecordVideoModalProps {
   isOpen: boolean
@@ -23,7 +22,7 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
   onClose,
 }) => {
   const { mutate, data } = useAddTestimonial()
-  const { slug } = useParams();
+  const { slug } = useParams()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -50,7 +49,7 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
         testimonialMessage: '',
         spaceId: slug as string,
       })
-      console.log(data);
+      console.log(data)
     }
   }
 
@@ -64,11 +63,20 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
     formData.append('upload_preset', preset || '')
 
     try {
-      const response = await axios.post(url, formData, {
+      // const response = await axios.post(url, formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // })
+      const result = await fetch(url, {
+        method: 'POST',
+        body: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
+
+      const response = await result.json()
       return response.data.secure_url
     } catch (error) {
       toast.error('Cloudinary upload failed.')
