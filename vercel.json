@@ -1,12 +1,10 @@
 {
-  "builds": [
-    {
-      "src": "packages/package.json",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "client/package.json",
-      "use": "@vercel/next"
+    "projects": {
+      "client": {
+        "src": "client",
+        "buildCommand": "yarn build",
+        "outputDirectory": "client/.next"
+      }
     }
-  ]
-}
+  }
+  

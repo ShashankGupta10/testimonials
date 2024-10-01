@@ -2,7 +2,7 @@
   "name": "testimonials",
   "private": true,
   "workspaces": [
-    "client/*",
+    "client",
     "packages/*"
   ],
   "version": "1.0.0",
