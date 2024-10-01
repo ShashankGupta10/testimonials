@@ -8,7 +8,7 @@ export const useCheckAuth = () => {
 }
 
 const checkAuth = async () => {
-  const response = await fetch('http://localhost:5000/api/v1/auth/checkAuth', {
+  const response = await fetch('https://testimonials-s796.onrender.com/api/v1/auth/checkAuth', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

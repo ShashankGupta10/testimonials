@@ -102,7 +102,7 @@
     document.head.appendChild(style);
 
     // Fetch testimonial data from API
-    fetch(`http://localhost:5000/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`)
+    fetch(`https://testimonials-s796.onrender.com/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`)
       .then(response => response.json())
       .catch(error => console.log(error))
       .then(data => {

@@ -6,7 +6,7 @@ export const useGetTestimonials = (slug: string) => {
     queryKey: ['testimonials'],
     queryFn: async () => {
       const response = await fetch(
-        `http://localhost:5000/api/v1/testimonials/get?spaceId=${slug}`,
+        `https://testimonials-s796.onrender.com/api/v1/testimonials/get?spaceId=${slug}`,
         {
           method: 'GET',
           headers: {

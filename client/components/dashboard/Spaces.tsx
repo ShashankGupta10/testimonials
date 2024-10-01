@@ -34,7 +34,7 @@ const Spaces = () => {
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full justify-center items-center">
-        {data?.map((space) => (
+        {Array.isArray(data) && data.length > 0 && data?.map((space) => (
           <div
             className="relative bg-white rounded-2xl shadow-lg"
             key={space.spaceName}

@@ -5,7 +5,7 @@ export const useGetSpaces = () => {
   return useQuery({
     queryKey: ['spaces'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/api/v1/spaces/getSpaces', {
+      const res = await fetch('https://testimonials-s796.onrender.com/api/v1/spaces/getSpaces', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

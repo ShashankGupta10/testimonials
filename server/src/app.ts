@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:5500"],
+    origin: "*",
     credentials: true
 }))
 
@@ -26,5 +26,5 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 })
 
 app.listen(5000, () => {
-    console.log("Server is running on http://localhost:5000");
+    console.log("Server is running on https://testimonials-s796.onrender.com");
 });

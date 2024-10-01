@@ -190,7 +190,7 @@
     `;
     document.head.appendChild(style);
 
-    fetch(`http://localhost:5000/api/v1/spaces/getSpace/${spaceId}`)
+    fetch(`https://testimonials-s796.onrender.com/api/v1/spaces/getSpace/${spaceId}`)
       .then(response => response.json())
       .then(formData => {
         const testimonialContainer = document.createElement('div');
@@ -283,7 +283,7 @@
           testimonialVideo: '',
           spaceId: spaceId,
         };
-        const response = await fetch('http://localhost:5000/api/v1/testimonials/add', {
+        const response = await fetch('https://testimonials-s796.onrender.com/api/v1/testimonials/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -436,7 +436,7 @@
         spaceId: spaceId,
       };
 
-      const api_response = await fetch('http://localhost:5000/api/v1/testimonials/add', {
+      const api_response = await fetch('https://testimonials-s796.onrender.com/api/v1/testimonials/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

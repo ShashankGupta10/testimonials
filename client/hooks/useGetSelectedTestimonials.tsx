@@ -10,7 +10,7 @@ export const useGetSelectedTestimonials = (spaceId: string) => {
 
 const getSelectedTestimonials = async (spaceId: string) => {
   const response = await fetch(
-    `http://localhost:5000/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`,
+    `https://testimonials-s796.onrender.com/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`,
   )
   const data = await response.json()
   return data.data as TestimonialProps[]

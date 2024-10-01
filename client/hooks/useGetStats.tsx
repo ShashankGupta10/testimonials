@@ -8,7 +8,7 @@ export const useGetStats = () => {
 }
 
 const getStats = async () => {
-    const response = await fetch("http://localhost:5000/api/v1/user/stats", {
+    const response = await fetch("https://testimonials-s796.onrender.com/api/v1/user/stats", {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
