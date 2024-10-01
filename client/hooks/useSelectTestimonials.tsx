@@ -27,7 +27,6 @@ export const useSelectTestimonials = () => {
         await response.json()
       if (responseData.success) {
         toast.success(responseData.message)
-        // revalidatePath(`/dashboard/testimonials/${data.spaceId}`, 'page')
       }
       return responseData
     },

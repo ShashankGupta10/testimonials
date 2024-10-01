@@ -20,7 +20,7 @@ const page = () => {
     e.preventDefault()
     login(formData, {
       onSuccess: () => {
-        router.push('/dashboard')
+        router.push('/app/dashboard')
       },
       
     })

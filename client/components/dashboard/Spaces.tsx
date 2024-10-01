@@ -69,7 +69,7 @@ const Spaces = () => {
                           <li
                             className="p-2 hover:bg-gray-100 cursor-pointer"
                             onClick={() =>
-                              router.push(`/dashboard/testimonials/${space.id}`)
+                              router.push(`/app/dashboard/testimonials/${space.id}`)
                             }
                           >
                             Testimonials
@@ -83,7 +83,7 @@ const Spaces = () => {
                           <li
                             className="p-2 hover:bg-gray-100 cursor-pointer"
                             onClick={() =>
-                              router.push(`/dashboard/preview/${space.id}`)
+                              router.push(`/app/dashboard/preview/${space.id}`)
                             }
                           >
                             Preview
