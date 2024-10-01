@@ -12,7 +12,6 @@ export const createTestimonial = async (req: Request, res: Response) => {
             spaceId: body.spaceId
         }
     });
-    console.log(testimonial);
     res.status(200).json({ success: true, data: testimonial });
 }
 
@@ -63,6 +62,5 @@ export const selectedTestimonials = async (req: Request, res: Response) => {
             selected: true
         },
     }); 
-    console.log(spaceId, testimonials);
     res.status(200).json({ success: true, data: testimonials });
 }

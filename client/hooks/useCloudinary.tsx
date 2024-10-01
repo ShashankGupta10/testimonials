@@ -14,6 +14,5 @@ const uploadToCloudinary = async (file: string) => {
         body: JSON.stringify({ data: file }),
     })
     const data = await response.json()
-    console.log(data);
     return data.secure_url
 }

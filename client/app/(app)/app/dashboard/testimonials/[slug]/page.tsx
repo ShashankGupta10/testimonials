@@ -23,7 +23,6 @@ const Page = () => {
   const [selectedTestimonials, setSelectedTestimonials] = useState<string[]>([])
 
   useEffect(() => {
-    console.log('RUNNING')
     setSelectedTestimonials(
       testimonials
         ?.filter((t) => t.selected)
@@ -34,16 +33,13 @@ const Page = () => {
 
   const handleSelectTestimonial = (id: string) => {
     if (selectedTestimonials.includes(id)) {
-      console.log(selectedTestimonials)
       setSelectedTestimonials(selectedTestimonials.filter((t) => t !== id))
     } else if (selectedTestimonials.length < 3) {
-      console.log(selectedTestimonials)
       setSelectedTestimonials([...selectedTestimonials, id])
     }
   }
 
   const handleSubmit = () => {
-    console.log('Selected Testimonials:', selectedTestimonials)
     mutate({ spaceId: slug as string, selectedTestimonials })
   }
 

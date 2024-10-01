@@ -104,9 +104,7 @@
     // Fetch testimonial data from API
     fetch(`https://testimonials-s796.onrender.com/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`)
       .then(response => response.json())
-      .catch(error => console.log(error))
       .then(data => {
-        console.log(data);
         const testimonials = data.data || [];
         const container = document.createElement('div');
         container.className = 'testimonial-container';

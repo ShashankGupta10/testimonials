@@ -17,6 +17,5 @@ const checkAuth = async () => {
     success: boolean
     message: string
   } = await response.json()
-  console.log('IN API', data)
   return data.success
 }

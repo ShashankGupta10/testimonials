@@ -15,7 +15,6 @@ export const useDeleteSpace = () => {
 }
 
 const deleteSpace = async (slug: string) => {
-  console.log(slug);
   const response = await fetch(
     'https://testimonials-s796.onrender.com/api/v1/spaces/delete',
     {

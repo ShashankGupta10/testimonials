@@ -28,6 +28,5 @@ const fetchData = async (formData: SpaceType) => {
   })
   if (!response.ok) throw new Error('Network response was not ok')
   const json_data = await response.json()
-  console.log(json_data)
   return json_data
 }

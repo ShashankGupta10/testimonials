@@ -40,7 +40,6 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
   const handleAddTestimonial = async () => {
     if (formData.videoFile) {
       const cloudinaryUrl = await uploadToCloudinary(formData.videoFile)
-      console.log('Video uploaded to Cloudinary:', cloudinaryUrl)
       setFormData({ ...formData, videoUrl: cloudinaryUrl })
       mutate({
         name: formData.name,
@@ -49,7 +48,6 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
         testimonialMessage: '',
         spaceId: slug as string,
       })
-      console.log(data)
     }
   }
 

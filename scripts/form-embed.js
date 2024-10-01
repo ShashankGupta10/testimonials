@@ -418,15 +418,12 @@
       formData.append('upload_preset', 'testimonials');
 
       // Upload to Cloudinary
-      console.log(formData.get('file'));
-      console.log(formData.get('upload_preset'));
       const response = await fetch('https://api.cloudinary.com/v1_1/dz1vccend/video/upload', {
         method: 'POST',
         body: formData,
       })
       const data = await response.json();
       const videoUrl = data.secure_url;
-      console.log(videoUrl);
       // Post form data with video link to your API
       const testimonialData = {
         name: name,
@@ -445,7 +442,6 @@
       })
 
       const result = await api_response.json();
-      console.log(result);
       if (result.success) {
         alert('Testimonial submitted successfully!');
         closeModal();

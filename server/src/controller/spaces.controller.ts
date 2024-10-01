@@ -26,25 +26,21 @@ export const getSpaces = async (req: Request, res: Response) => {
             testimonials: true
         }
     });
-    console.log(spaces);
     res.status(200).json(spaces);
 }
 
 export const getSpace = async (req: Request, res: Response) => {
     const spaceId = req.params.spaceId;
-    console.log(spaceId);
     const space = await prisma.space.findUnique({
         where: {
             id: spaceId
         }
     })
-    console.log(space);
     res.status(200).json(space);
 }
 
 export const deleteSpace = async (req: Request, res: Response) => {
     const spaceId = req.body.spaceId;
-    console.log(req.body);
     await prisma.space.delete({
         where: {
             id: spaceId

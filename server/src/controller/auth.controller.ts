@@ -22,7 +22,6 @@ export const signup = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     const body = req.body;
-    console.log(body);
     const { data, success, error } = loginSchema.safeParse(body);
     if (!success) return res.status(400).json(error.issues);
     const user = await prisma.user.findUnique({
@@ -39,7 +38,6 @@ export const login = async (req: Request, res: Response) => {
         httpOnly: true,
         sameSite: "strict",
         maxAge: 3600000,
-        secure: process.env.NODE_ENV === 'production'
     });
     res.status(200).json({ message: "Logged in successfully" });
 }

@@ -5,7 +5,6 @@ import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 
 const Stats = () => {
   const { data, error, isLoading } = useGetStats()
-  console.log(data)
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

@@ -4,7 +4,6 @@ import { prisma } from "../db/connect";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies["token"];
-    console.log(token);
     if (!token) return res.status(200).json({ message: "Unauthenticated user", success: false });
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY!) as unknown as { userId: string };

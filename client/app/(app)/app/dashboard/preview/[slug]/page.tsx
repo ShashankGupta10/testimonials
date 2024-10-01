@@ -18,7 +18,6 @@ export interface TestimonialProps {
 
 const TestimonialCard = ({ params }: { params: { slug: string } }) => {
   const { data, isLoading, error } = useGetSelectedTestimonials(params.slug)
-  console.log(data)
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
       <div className="container mx-auto py-12">
