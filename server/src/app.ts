@@ -11,9 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-    origin: ["*"],
+    preflightContinue: true,
+    origin: function (origin, callback) {
+        callback(null, origin);
+    },
     credentials: true
-}))
+}));
+
 
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/user", userRouter)
