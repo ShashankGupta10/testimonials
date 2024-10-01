@@ -1,5 +1,10 @@
 {
   "name": "testimonials",
+  "private": true,
+  "workspaces": [
+    "client/*",
+    "packages/*"
+  ],
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

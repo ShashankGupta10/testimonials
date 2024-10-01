@@ -1,8 +1,10 @@
 {
-  "builds": [
-    {
-      "src": "client/package.json",
-      "use": "@vercel/next"
-    }
-  ]
-}
+    "projects": [
+      {
+        "name": "testimonials",
+        "src": "client/",
+        "buildCommand": "npm run build",
+        "framework": "nextjs"
+      }
+    ]
+  }
