@@ -2,7 +2,7 @@
   // Load the widget when the DOM is ready
   document.addEventListener('DOMContentLoaded', function () {
     const spaceId = document.querySelector('script[data-space-id]').getAttribute('data-space-id');
-    const targetDiv = document.getElementById(`testimonials-${spaceId}`);
+    const targetDiv = document.getElementById(`form-${spaceId}`);
 
     const fontLink = document.createElement('link');
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap';

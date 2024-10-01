@@ -32,7 +32,7 @@ const EmbedModal = ({ open, setOpen, spaceId }: EmbedModalProps) => {
             <li>Copy the embed code below.</li>
             <div className="relative bg-gray-100 rounded-md p-4 text-sm">
               <pre className="overflow-auto font-mono whitespace-pre-wrap">
-                {`<script src="https://example.com/embed-widget.js" data-space-id="${spaceId}"></script>`}
+                {`<script src="https://cdn.jsdelivr.net/gh/ShashankGupta10/testimonials@main/scripts/testimonial-embed.js" data-space-id="${spaceId}"></script>`}
               </pre>
             </div>
             <li>Paste it into the head section of your website's HTML code.</li>
