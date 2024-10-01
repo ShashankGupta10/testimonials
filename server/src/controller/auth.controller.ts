@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prisma } from "../db/connect";
 import bcrypt from "bcrypt";
 import jwt, { TokenExpiredError } from "jsonwebtoken";
-import { loginSchema, signupSchema } from "@appTypes";
+import { loginSchema, signupSchema } from "./../types";
 
 export const signup = async (req: Request, res: Response) => {
     const body = req.body;

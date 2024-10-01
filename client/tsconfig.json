@@ -19,7 +19,6 @@
       }
     ],
     "paths": {
-      "@appTypes": ["./../packages/src/index.ts"],
       "@/*": ["./*"]
     }
   },

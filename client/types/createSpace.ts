@@ -1,4 +1,4 @@
-import { SpaceType } from "@appTypes";
+import { SpaceType } from "@/types";
 export type Testimonial = {
     id: String
     testimonialMessage: String

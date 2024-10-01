@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../db/connect";
-import { spaceSchema } from "@appTypes";
+import { spaceSchema } from "../types";
 
 export const createSpace = async (req: Request, res: Response) => {
     const body = req.body;

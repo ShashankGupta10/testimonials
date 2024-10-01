@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { spaceSchema, SpaceType } from "@appTypes"
+import { spaceSchema, SpaceType } from "@/types"
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 

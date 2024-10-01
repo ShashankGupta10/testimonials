@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { SpaceType } from '@appTypes'
 import { Spaces } from '@/types/createSpace'
 
 export const useGetSpaces = () => {

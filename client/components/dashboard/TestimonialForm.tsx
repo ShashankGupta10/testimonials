@@ -6,7 +6,7 @@ import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { BiTrash } from 'react-icons/bi'
 import { Button } from '../ui/button'
-import { SpaceType } from '@appTypes'
+import { SpaceType } from '@/types'
 
 const TestimonialForm = ({
   formData,

@@ -5,7 +5,7 @@ import { Button } from '../ui/button';
 import { FaPlus } from 'react-icons/fa6';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import { useCreateSpace } from '@/hooks/useCreateSpace';
-import { SpaceType } from '@appTypes';
+import { SpaceType } from '@/types';
 import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper';
 import TestimonialForm from './TestimonialForm';
 import TestimonialPreview from './TestimonialPreview';

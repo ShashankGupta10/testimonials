@@ -1,5 +1,5 @@
 'use client'
-import { SpaceType } from '@appTypes'
+import { SpaceType } from '@/types'
 import { useState } from 'react'
 import RecordVideoModal from '../getTestimonial/RecordVideoModal'
 import SendTextModal from '@/components/getTestimonial/SendTextModal'

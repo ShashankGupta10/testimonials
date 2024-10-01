@@ -1,4 +1,4 @@
-import { SpaceType } from '@appTypes'
+import { SpaceType } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
 export const useSpace = (slug: string) => {
