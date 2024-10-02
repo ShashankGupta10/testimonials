@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@/constants/hero'
 import { SpaceType } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
@@ -11,7 +12,7 @@ export const useSpace = (slug: string) => {
 
 const fetchSpace = async (slug: string) => {
   const res = await fetch(
-    `https://testimonials-s796.onrender.com/api/v1/spaces/getSpace/${slug}`,
+    `${BACKEND_URL}/api/v1/spaces/getSpace/${slug}`,
     {
       method: 'GET',
       headers: {

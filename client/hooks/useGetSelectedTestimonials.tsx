@@ -1,4 +1,5 @@
 import { TestimonialProps } from '@/app/(app)/app/dashboard/preview/[slug]/page'
+import { BACKEND_URL } from '@/constants/hero'
 import { useQuery } from '@tanstack/react-query'
 
 export const useGetSelectedTestimonials = (spaceId: string) => {
@@ -10,7 +11,7 @@ export const useGetSelectedTestimonials = (spaceId: string) => {
 
 const getSelectedTestimonials = async (spaceId: string) => {
   const response = await fetch(
-    `https://testimonials-s796.onrender.com/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`,
+    `${BACKEND_URL}/api/v1/testimonials/selectedTestimonials?spaceId=${spaceId}`,
   )
   const data = await response.json()
   return data.data as TestimonialProps[]

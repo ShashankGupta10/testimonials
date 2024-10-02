@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "@/constants/hero"
 import { useQuery } from "@tanstack/react-query"
 
 export const useGetStats = () => {
@@ -8,7 +9,7 @@ export const useGetStats = () => {
 }
 
 const getStats = async () => {
-    const response = await fetch("https://testimonials-s796.onrender.com/api/v1/user/stats", {
+    const response = await fetch(`${BACKEND_URL}/api/v1/user/stats`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

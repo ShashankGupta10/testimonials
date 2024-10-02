@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
@@ -18,6 +18,9 @@ app.use(cors({
     credentials: true
 }));
 
+app.get("/", (_: Request, res: Response) => {
+    res.send("Pinged the server");
+});
 
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/user", userRouter)
@@ -30,5 +33,5 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 })
 
 app.listen(5000, () => {
-    console.log("Server is running on https://testimonials-s796.onrender.com");
+    console.log("Server is running on http://localhost:5000");
 });

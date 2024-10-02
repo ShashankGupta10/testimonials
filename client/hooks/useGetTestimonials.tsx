@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@/constants/hero'
 import { Testimonial } from '@/types/testimonial'
 import { useQuery } from '@tanstack/react-query'
 
@@ -6,7 +7,7 @@ export const useGetTestimonials = (slug: string) => {
     queryKey: ['testimonials'],
     queryFn: async () => {
       const response = await fetch(
-        `https://testimonials-s796.onrender.com/api/v1/testimonials/get?spaceId=${slug}`,
+        `${BACKEND_URL}/api/v1/testimonials/get?spaceId=${slug}`,
         {
           method: 'GET',
           headers: {

@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "@/constants/hero"
 import { useMutation } from "@tanstack/react-query"
 
 export const useLogout = () => {
@@ -8,7 +9,7 @@ export const useLogout = () => {
 }
 
 const logout = async () => {
-    const response = await fetch('https://testimonials-s796.onrender.com/api/v1/auth/logout', {
+    const response = await fetch(`${BACKEND_URL}/api/v1/auth/logout`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

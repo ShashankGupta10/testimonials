@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@/constants/hero'
 import { useQuery } from '@tanstack/react-query'
 
 export const useCheckAuth = () => {
@@ -8,7 +9,7 @@ export const useCheckAuth = () => {
 }
 
 const checkAuth = async () => {
-  const response = await fetch('https://testimonials-s796.onrender.com/api/v1/auth/checkAuth', {
+  const response = await fetch(`${BACKEND_URL}/api/v1/auth/checkAuth`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

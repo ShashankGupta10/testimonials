@@ -283,7 +283,7 @@
           testimonialVideo: '',
           spaceId: spaceId,
         };
-        const response = await fetch('https://testimonials-s796.onrender.com/api/v1/testimonials/add', {
+        const response = await fetch(`https://testimonials-s796.onrender.com/api/v1/testimonials/add`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -305,7 +305,7 @@
       modal.id = 'video-modal';
       modal.classList.add('modal');
       modal.innerHTML = `
-        <div class="modal-content">
+          <div class= "modal-content">
           <span class="close-btn">&times;</span>
           <div class="modal-header">Record a Video</div>
           <div class="video-container">
@@ -323,8 +323,7 @@
             <button id="start-record-btn">Start Recording</button>
             <button id="add-testimonial-btn">Add Testimonial</button>
           </div>
-        </div>
-      `;
+        </div>`;
 
       document.body.appendChild(modal);
       const video = document.getElementById('video-preview');
@@ -433,34 +432,34 @@
         spaceId: spaceId,
       };
 
-      const api_response = await fetch('https://testimonials-s796.onrender.com/api/v1/testimonials/add', {
+      const api_response = await fetch('/api/v1/testimonials/add', {
         method: 'POST',
-        headers: {
+          headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(testimonialData),
       })
 
-      const result = await api_response.json();
-      if (result.success) {
-        alert('Testimonial submitted successfully!');
-        closeModal();
-      } else {
-        alert('Error submitting testimonial.');
-      }
-    }
+  const result = await api_response.json();
+  if (result.success) {
+    alert('Testimonial submitted successfully!');
+    closeModal();
+  } else {
+    alert('Error submitting testimonial.');
+  }
+}
 
     function closeModal() {
-      const modal = document.getElementById('video-modal');
-      const textModal = document.getElementById('text-modal');
-      if (modal) {
-        modal.style.display = 'none';
-        document.body.removeChild(modal);
-      }
-      if (textModal) {
-        textModal.style.display = 'none';
-        document.body.removeChild(textModal);
-      }
-    }
+  const modal = document.getElementById('video-modal');
+  const textModal = document.getElementById('text-modal');
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.removeChild(modal);
+  }
+  if (textModal) {
+    textModal.style.display = 'none';
+    document.body.removeChild(textModal);
+  }
+}
   });
-})();
+}) ();

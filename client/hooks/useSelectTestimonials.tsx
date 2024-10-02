@@ -1,5 +1,5 @@
+import { BACKEND_URL } from '@/constants/hero'
 import { useMutation } from '@tanstack/react-query'
-import { revalidatePath } from 'next/cache'
 import { toast } from 'react-toastify'
 
 export const useSelectTestimonials = () => {
@@ -10,7 +10,7 @@ export const useSelectTestimonials = () => {
       selectedTestimonials: string[]
     }) => {
       const response = await fetch(
-        'https://testimonials-s796.onrender.com/api/v1/testimonials/select',
+        `${BACKEND_URL}/api/v1/testimonials/select`,
         {
           method: 'POST',
           headers: {

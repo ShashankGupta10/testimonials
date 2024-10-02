@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "@/constants/hero"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
@@ -16,7 +17,7 @@ export const useDeleteSpace = () => {
 
 const deleteSpace = async (slug: string) => {
   const response = await fetch(
-    'https://testimonials-s796.onrender.com/api/v1/spaces/delete',
+    `${BACKEND_URL}/api/v1/spaces/delete`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

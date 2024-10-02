@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@/constants/hero'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 
@@ -21,7 +22,7 @@ export const useLogin = () => {
 }
 
 const fetchData = async (formData: { username: string; password: string }) => {
-  const response = await fetch('https://testimonials-s796.onrender.com/api/v1/auth/login', {
+  const response = await fetch(`${BACKEND_URL}/api/v1/auth/login`, {
     method: 'POST',
     body: JSON.stringify(formData),
     headers: {
