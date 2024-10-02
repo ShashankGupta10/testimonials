@@ -17,6 +17,7 @@ const Spaces = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [embedModalOpen, setEmbedModalOpen] = useState(false)
   const [embedFormModalOpen, setEmbedFormModalOpen] = useState(false)
+  const [spaceId, setSpaceId] = useState<string | null>(null)
 
   useEffect(() => {
     if (openDropdown) {
@@ -34,122 +35,133 @@ const Spaces = () => {
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full justify-center items-center">
-        {Array.isArray(data) && data.length > 0 && data?.map((space) => (
-          <div
-            className="relative bg-white rounded-2xl shadow-lg"
-            key={space.spaceName}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
-              {/* Image Section */}
-              <div className="flex justify-center items-center lg:col-span-3 col-span-12">
-                <img
-                  src="https://picsum.photos/300/150"
-                  alt="Space"
-                  className="rounded-xl h-full w-full object-cover"
-                />
-              </div>
-
-              <div className="col-span-12 lg:col-span-9 space-y-4 relative">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-3xl font-bold text-gray-900">
-                    {space.spaceName}
-                  </h2>
-
-                  {/* Dropdown Button - Moved beside the name */}
-                  <div className="md:absolute md:top-4 md:right-4">
-                    <button
-                      onClick={() => handleDropdownToggle(space.id)}
-                      className="focus:outline-none"
-                    >
-                      <HiDotsVertical className="text-gray-500 w-6 h-6" />
-                    </button>
-                    {openDropdown === space.id && (
-                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-10">
-                        <ul>
-                          <li
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() =>
-                              router.push(`/app/dashboard/testimonials/${space.id}`)
-                            }
-                          >
-                            Testimonials
-                          </li>
-                          <li
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() => router.push(`/${space.id}`)}
-                          >
-                            Form
-                          </li>
-                          <li
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() =>
-                              router.push(`/app/dashboard/preview/${space.id}`)
-                            }
-                          >
-                            Preview
-                          </li>
-                          <li
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() => setEmbedModalOpen(true)}
-                          >
-                            Embed Testimonials
-                          </li>
-                          <li
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() => setEmbedFormModalOpen(true)}
-                          >
-                            Embed Form
-                          </li>
-                          <li
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() => deleteSpace(space.id)}
-                          >
-                            Delete Space
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                    <EmbedModal
-                      open={embedModalOpen}
-                      setOpen={setEmbedModalOpen}
-                      spaceId={space.id}
-                    />
-                    <EmbedFormModal
-                      embedFormModalOpen={embedFormModalOpen}
-                      setEmbedFormModalOpen={setEmbedFormModalOpen}
-                      spaceId={space.id}
-                    />
-                  </div>
+        {Array.isArray(data) &&
+          data.length > 0 &&
+          data?.map((space) => (
+            <div
+              className="relative bg-white rounded-2xl shadow-lg"
+              key={space.spaceName}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
+                {/* Image Section */}
+                <div className="flex justify-center items-center lg:col-span-3 col-span-12">
+                  <img
+                    src="https://picsum.photos/300/150"
+                    alt="Space"
+                    className="rounded-xl h-full w-full object-cover"
+                  />
                 </div>
 
-                <p className="text-gray-600 text-base">{space.customMessage}</p>
+                <div className="col-span-12 lg:col-span-9 space-y-4 relative">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-3xl font-bold text-gray-900">
+                      {space.spaceName}
+                    </h2>
 
-                <div className="flex items-center space-x-4 text-gray-700">
-                  <span className="flex items-center gap-1">
-                    <BiMessage className="text-indigo-600 w-6 h-6" />
-                    {
-                      space.testimonials.filter(
-                        (testimonial) => testimonial.testimonialMessage,
-                      ).length
-                    }{' '}
-                    Messages
-                  </span>
+                    {/* Dropdown Button - Moved beside the name */}
+                    <div className="md:absolute md:top-4 md:right-4">
+                      <button
+                        onClick={() => {
+                          handleDropdownToggle(space.id)
+                          setSpaceId(space.id)
+                        }}
+                        className="focus:outline-none"
+                      >
+                        <HiDotsVertical className="text-gray-500 w-6 h-6" />
+                      </button>
+                      {openDropdown === space.id && (
+                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-10">
+                          <ul>
+                            <li
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() =>
+                                router.push(
+                                  `/app/dashboard/testimonials/${space.id}`,
+                                )
+                              }
+                            >
+                              Testimonials
+                            </li>
+                            <li
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => router.push(`/${space.id}`)}
+                            >
+                              Form
+                            </li>
+                            <li
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() =>
+                                router.push(
+                                  `/app/dashboard/preview/${space.id}`,
+                                )
+                              }
+                            >
+                              Preview
+                            </li>
+                            <li
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => setEmbedModalOpen(true)}
+                            >
+                              Embed Testimonials
+                            </li>
+                            <li
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => setEmbedFormModalOpen(true)}
+                            >
+                              Embed Form
+                            </li>
+                            <li
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => deleteSpace(space.id)}
+                            >
+                              Delete Space
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-                  <span className="flex items-center gap-1">
-                    <BiVideo className="text-indigo-600 w-6 h-6" />
-                    {
-                      space.testimonials.filter(
-                        (testimonial) => testimonial.testimonialVideo,
-                      ).length
-                    }{' '}
-                    Videos
-                  </span>
+                  <p className="text-gray-600 text-base">
+                    {space.customMessage}
+                  </p>
+
+                  <div className="flex items-center space-x-4 text-gray-700">
+                    <span className="flex items-center gap-1">
+                      <BiMessage className="text-indigo-600 w-6 h-6" />
+                      {
+                        space.testimonials.filter(
+                          (testimonial) => testimonial.testimonialMessage,
+                        ).length
+                      }{' '}
+                      Messages
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <BiVideo className="text-indigo-600 w-6 h-6" />
+                      {
+                        space.testimonials.filter(
+                          (testimonial) => testimonial.testimonialVideo,
+                        ).length
+                      }{' '}
+                      Videos
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
+      <EmbedModal
+        open={embedModalOpen}
+        setOpen={setEmbedModalOpen}
+        spaceId={spaceId as string}
+      />
+      <EmbedFormModal
+        embedFormModalOpen={embedFormModalOpen}
+        setEmbedFormModalOpen={setEmbedFormModalOpen}
+        spaceId={spaceId as string}
+      />
     </LoadingAndErrorWrapper>
   )
 }
