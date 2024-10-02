@@ -11,6 +11,7 @@ import { Label } from '@radix-ui/react-label'
 import { Input } from '../ui/input'
 import { useAddTestimonial } from '@/hooks/useAddTestimonial'
 import { useParams } from 'next/navigation'
+import axios from 'axios'
 
 interface RecordVideoModalProps {
   isOpen: boolean
@@ -55,27 +56,29 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
     setIsUploading(true)
     const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload`
     const preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-
+    console.log(preset);
     const formData = new FormData()
     formData.append('file', file)
     formData.append('upload_preset', preset || '')
+    formData.append('cloud_name', process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || '')
 
     try {
-      // const response = await axios.post(url, formData, {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      // })
-      const result = await fetch(url, {
-        method: 'POST',
-        body: formData,
+      const result = await axios.post(url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
+      // const result = await fetch(url, {
+      //   method: 'POST',
+      //   body: formData,
+      //   headers: {
+      //     'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+      //   }
+      // })
+      console.log(result);
 
-      const response = await result.json()
-      return response.data.secure_url
+      // const response = await result.json()
+      return result.data.secure_url
     } catch (error) {
       toast.error('Cloudinary upload failed.')
       console.error('Cloudinary upload error:', error)
