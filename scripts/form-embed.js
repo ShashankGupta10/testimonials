@@ -256,12 +256,40 @@
             <label for="company">Company</label>
             <input type="text" id="text-company" placeholder="Enter your company" />
           </div>
+          <div class="input-group">
+            <label for="rating">Rating</label>
+            <div class="star-rating">
+              ${[1, 2, 3, 4, 5]
+                .map((i) => `<span class="star" data-value="${i}">&#9734;</span>`)
+                .join('')}
+            </div>
+            <input type="hidden" id="rating-input" />
+          </div>
           <div class="button-group">
             <button id="add-testimonial-btn">Submit Testimonial</button>
           </div>
         </div>
       `;
       document.body.appendChild(modal);
+      
+      const stars = modal.querySelectorAll('.star');
+      const ratingInput = modal.querySelector('#rating-input');
+
+      stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+          const rating = index + 1; // 1-based index
+          ratingInput.value = rating;
+
+          // Update star display
+          stars.forEach((s, i) => {
+            if (i < rating) {
+              s.textContent = '★'; // Filled star
+            } else {
+              s.textContent = '☆'; // Empty star
+            }
+          });
+        });
+      });
 
       const closeButton = modal.querySelector('.close-btn');
       closeButton.addEventListener('click', closeModal);
@@ -275,6 +303,7 @@
         const name = document.getElementById('text-name').value;
         const company = document.getElementById('text-company').value;
         const testimonial = document.getElementById('text-testimonial').value;
+        const rating = Number(document.getElementById('rating-input').value);
 
         const testimonialData = {
           name: name,
@@ -282,6 +311,7 @@
           testimonialMessage: testimonial,
           testimonialVideo: '',
           spaceId: spaceId,
+          rating: rating,
         };
         const response = await fetch(`https://testimonials-s796.onrender.com/api/v1/testimonials/add`, {
           method: 'POST',
@@ -319,6 +349,15 @@
             <label for="company">Company</label>
             <input type="text" id="company" placeholder="Enter your company" />
           </div>
+          <div class="input-group">
+            <label for="rating">Rating</label>
+            <div class="star-rating">
+              ${[1, 2, 3, 4, 5]
+                .map((i) => `<span class="star" data-value="${i}">&#9734;</span>`)
+                .join('')}
+            </div>
+            <input type="hidden" id="rating-video-input" />
+          </div>
           <div class="button-group">
             <button id="start-record-btn">Start Recording</button>
             <button id="add-testimonial-btn">Add Testimonial</button>
@@ -329,6 +368,24 @@
       const video = document.getElementById('video-preview');
       const startRecordBtn = document.getElementById('start-record-btn');
       const addTestimonialBtn = document.getElementById('add-testimonial-btn');
+      const stars = modal.querySelectorAll('.star');
+      const ratingInput = modal.querySelector('#rating-video-input');
+
+      stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+          const rating = index + 1; // 1-based index
+          ratingInput.value = rating;
+
+          // Update star display
+          stars.forEach((s, i) => {
+            if (i < rating) {
+              s.textContent = '★'; // Filled star
+            } else {
+              s.textContent = '☆'; // Empty star
+            }
+          });
+        });
+      });
 
       startRecordBtn.addEventListener('click', function () {
         if (startRecordBtn.innerText === 'Start Recording' || startRecordBtn.innerText === 'Re-record') {
@@ -404,12 +461,14 @@
     function stopRecording(startRecordBtn) {
       mediaRecorder.stop();
       stream.getTracks().forEach((track) => track.stop());
+      
       startRecordBtn.innerText = 'Re-record';
     }
 
     async function uploadTestimonial() {
       const name = document.getElementById('name').value;
       const company = document.getElementById('company').value;
+      const rating = Number(document.getElementById('rating-video-input').value);
       const blob = new Blob(recordedChunks, { type: 'video/webm' });
 
       const formData = new FormData();
@@ -430,9 +489,10 @@
         testimonialVideo: videoUrl,
         testimonialMessage: 'This is a great product!',
         spaceId: spaceId,
+        rating: rating,
       };
 
-      const api_response = await fetch('/api/v1/testimonials/add', {
+      const api_response = await fetch('https://testimonials-s796.onrender.com/api/v1/testimonials/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
