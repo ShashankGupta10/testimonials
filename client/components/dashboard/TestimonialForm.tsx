@@ -1,10 +1,9 @@
 import { ChangeEvent, Dispatch, FormEvent } from 'react'
-import { DialogFooter, DialogHeader } from '../ui/dialog'
-import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog'
-import { Label } from '@radix-ui/react-label'
+import { DialogFooter, DialogHeader, DialogTitle, DialogDescription } from '../ui/dialog'
+import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
-import { BiTrash } from 'react-icons/bi'
+import { BiPlus, BiTrash } from 'react-icons/bi'
 import { Button } from '../ui/button'
 import { SpaceType } from '@/types'
 
@@ -102,21 +101,22 @@ const TestimonialForm = ({
           ))}
           <Button
             type="button"
+            variant={"secondary"}
             onClick={() =>
               setFormData({
                 ...formData,
                 questions: [...formData.questions, ''],
               })
             }
-            className="mt-2"
+            className="mt-2 flex gap-2"
           >
-            Add Question
+           <BiPlus className='w-5 h-5' /> Add Question
           </Button>
         </div>
       </div>
 
       <DialogFooter>
-        <Button type="submit">Create Space</Button>
+        <Button className='w-full' type="submit">Create Space</Button>
       </DialogFooter>
     </form>
   )

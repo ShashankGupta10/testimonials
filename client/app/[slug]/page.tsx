@@ -8,7 +8,7 @@ const page = ({ params }: { params: { slug: string } }) => {
 
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
-      {data && <TestimonialPreview formData={data} isForm={true} />}
+      <div className='h-screen flex justify-center items-center'>{data && <TestimonialPreview formData={data} isForm={true} />}</div>
     </LoadingAndErrorWrapper>
   )
 }

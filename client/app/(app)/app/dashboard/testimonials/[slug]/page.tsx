@@ -46,9 +46,15 @@ const Page = () => {
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
       <div className="container mx-auto py-12">
-        <h2 className="text-3xl font-bold text-center mb-8">
+        <h2 className="text-3xl font-bold text-center mb-2">
           What Our Customers Say
         </h2>
+        <p className='max-w-xl text-center mx-auto mb-8'>
+          Selected testimonials will be displayed on your embed page. You can
+          select up to 3 testimonials. Click on a testimonial to select it.
+          Click again to deselect it. Click the button below to submit your
+          selected testimonials.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials?.length === 0 && (
             <div className="col-span-3 my-auto text-center text-gray-500">
@@ -71,7 +77,7 @@ const Page = () => {
                     <h3 className="text-lg font-semibold">
                       {testimonial.name}
                     </h3>
-                    <StarRating rating={4} />
+                    <StarRating rating={testimonial.rating} />
                   </div>
                 </div>
                 <p className="text-gray-600 mb-4">

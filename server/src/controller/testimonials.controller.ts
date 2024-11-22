@@ -9,7 +9,8 @@ export const createTestimonial = async (req: Request, res: Response) => {
             companyName: body.companyName,
             testimonialVideo: body.testimonialVideo,
             testimonialMessage: body.testimonialMessage,
-            spaceId: body.spaceId
+            spaceId: body.spaceId,
+            rating: body.rating
         }
     });
     res.status(200).json({ success: true, data: testimonial });

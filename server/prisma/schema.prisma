@@ -37,4 +37,5 @@ model Testimonials {
   spaceId            String?
   Space              Space?  @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade) // Cascade deletion and updates
   selected           Boolean @default(false)
+  rating             Int     @default(0)
 }

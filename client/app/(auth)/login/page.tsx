@@ -22,7 +22,6 @@ const page = () => {
       onSuccess: () => {
         router.push('/app/dashboard')
       },
-      
     })
   }
 

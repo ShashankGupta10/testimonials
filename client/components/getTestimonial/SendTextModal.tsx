@@ -12,6 +12,8 @@ import { Label } from '@radix-ui/react-label'
 import { toast } from 'react-toastify'
 import { useParams } from 'next/navigation'
 import { useAddTestimonial } from '@/hooks/useAddTestimonial'
+import { Star } from 'lucide-react'
+import { StarFilledIcon } from '@radix-ui/react-icons'
 
 interface SendTextModalProps {
   isOpen: boolean
@@ -34,15 +36,12 @@ const SendTextModal: React.FC<SendTextModalProps> = ({
     name: '',
     companyName: '',
     testimonial: '',
+    rating: 0,
   })
   const { slug } = useParams()
 
   const handleSubmit = () => {
-    if (
-      !formData.name ||
-      !formData.companyName ||
-      !formData.testimonial
-    ) {
+    if (!formData.name || !formData.companyName || !formData.testimonial) {
       toast.error('All fields and questions are required.')
       return
     }
@@ -52,6 +51,7 @@ const SendTextModal: React.FC<SendTextModalProps> = ({
       testimonialMessage: formData.testimonial,
       testimonialVideo: '',
       spaceId: slug as string,
+      rating: formData.rating,
     })
     toast.success('Testimonial submitted successfully!')
   }
@@ -111,6 +111,22 @@ const SendTextModal: React.FC<SendTextModalProps> = ({
               placeholder="Enter your company name"
               className="w-full"
             />
+          </div>
+          <div>
+            <Label htmlFor="rating">Rating</Label>
+            {/* Rating: Show 5 stars and how many stars the user clicks will be the rating */}
+
+            <div className="flex gap-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  onClick={() => setFormData({ ...formData, rating: star })} // Update rating on click
+                  aria-label={`Rate ${star} star${star > 1 ? 's' : ''}`} // Accessibility
+                >
+                  {star <= formData.rating ? <StarFilledIcon className='w-6 h-6 text-yellow-500' /> : <Star />}
+                </button>
+              ))}
+            </div>
           </div>
           <Button onClick={handleSubmit} className="w-full">
             Submit Testimonial

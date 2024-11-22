@@ -13,7 +13,7 @@ export interface TestimonialProps {
   testimonialMessage?: string
   testimonialVideo?: string
   profileImage?: string
-  rating?: number
+  rating: number
 }
 
 const TestimonialCard = ({ params }: { params: { slug: string } }) => {
@@ -44,7 +44,7 @@ const TestimonialCard = ({ params }: { params: { slug: string } }) => {
                       <h3 className="text-lg font-semibold">
                         {testimonial.name}
                       </h3>
-                      <StarRating rating={4} />
+                      <StarRating rating={testimonial.rating} />
                     </div>
                   </div>
                   <div className="flex flex-col items-center mb-4">

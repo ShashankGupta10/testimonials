@@ -190,7 +190,7 @@
     `;
     document.head.appendChild(style);
 
-    fetch(`https://testimonials-s796.onrender.com/api/v1/spaces/getSpace/${spaceId}`)
+    fetch(`http://localhost:5000/api/v1/spaces/getSpace/${spaceId}`)
       .then(response => response.json())
       .then(formData => {
         const testimonialContainer = document.createElement('div');
@@ -434,32 +434,32 @@
 
       const api_response = await fetch('/api/v1/testimonials/add', {
         method: 'POST',
-          headers: {
+        headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(testimonialData),
       })
 
-  const result = await api_response.json();
-  if (result.success) {
-    alert('Testimonial submitted successfully!');
-    closeModal();
-  } else {
-    alert('Error submitting testimonial.');
-  }
-}
+      const result = await api_response.json();
+      if (result.success) {
+        alert('Testimonial submitted successfully!');
+        closeModal();
+      } else {
+        alert('Error submitting testimonial.');
+      }
+    }
 
     function closeModal() {
-  const modal = document.getElementById('video-modal');
-  const textModal = document.getElementById('text-modal');
-  if (modal) {
-    modal.style.display = 'none';
-    document.body.removeChild(modal);
-  }
-  if (textModal) {
-    textModal.style.display = 'none';
-    document.body.removeChild(textModal);
-  }
-}
+      const modal = document.getElementById('video-modal');
+      const textModal = document.getElementById('text-modal');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.removeChild(modal);
+      }
+      if (textModal) {
+        textModal.style.display = 'none';
+        document.body.removeChild(textModal);
+      }
+    }
   });
-}) ();
+})();

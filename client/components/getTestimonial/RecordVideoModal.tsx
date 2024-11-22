@@ -12,6 +12,9 @@ import { Input } from '../ui/input'
 import { useAddTestimonial } from '@/hooks/useAddTestimonial'
 import { useParams } from 'next/navigation'
 import axios from 'axios'
+import { Textarea } from '../ui/textarea'
+import { StarFilledIcon } from '@radix-ui/react-icons'
+import { Star } from 'lucide-react'
 
 interface RecordVideoModalProps {
   isOpen: boolean
@@ -30,6 +33,8 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
     company: '',
     videoUrl: null as string | null,
     videoFile: null as Blob | null,
+    testimonialMessage: '',
+    rating: 0,
   })
   const [isUploading, setIsUploading] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
@@ -46,8 +51,9 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
         name: formData.name,
         companyName: formData.company,
         testimonialVideo: cloudinaryUrl,
-        testimonialMessage: '',
+        testimonialMessage: formData.testimonialMessage,
         spaceId: slug as string,
+        rating: formData.rating,
       })
     }
   }
@@ -56,11 +62,14 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
     setIsUploading(true)
     const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload`
     const preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-    console.log(preset);
+    console.log(preset)
     const formData = new FormData()
     formData.append('file', file)
     formData.append('upload_preset', preset || '')
-    formData.append('cloud_name', process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || '')
+    formData.append(
+      'cloud_name',
+      process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || '',
+    )
 
     try {
       const result = await axios.post(url, formData, {
@@ -68,23 +77,15 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
           'Content-Type': 'multipart/form-data',
         },
       })
-      // const result = await fetch(url, {
-      //   method: 'POST',
-      //   body: formData,
-      //   headers: {
-      //     'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-      //   }
-      // })
-      console.log(result);
-
-      // const response = await result.json()
+      toast.success('Testimonial added successfully.')
       return result.data.secure_url
     } catch (error) {
-      toast.error('Cloudinary upload failed.')
+      toast.error('Testimonial addition failed.')
       console.error('Cloudinary upload error:', error)
       return null
     } finally {
       setIsUploading(false)
+      onClose()
     }
   }
 
@@ -143,7 +144,7 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className='h-full overflow-y-scroll'>
         <DialogHeader>
           <DialogTitle>Record a Video</DialogTitle>
         </DialogHeader>
@@ -190,6 +191,45 @@ const RecordVideoModal: React.FC<RecordVideoModalProps> = ({
               setFormData({ ...formData, company: e.target.value })
             }
           />
+        </div>
+        <div className="space-y-1">
+          <Label htmlFor="company" className="text-left w-32">
+            Testimonial Message
+          </Label>
+          <Textarea
+            id="message"
+            name="message"
+            className="w-full"
+            rows={2}
+            placeholder="Enter your message..."
+            value={formData.testimonialMessage}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                testimonialMessage: e.target.value as string,
+              })
+            }
+          />
+        </div>
+        <div className="space-y-1">
+          <Label htmlFor="company" className="text-left w-32">
+            Rating
+          </Label>
+          <div className="flex gap-2">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <button
+                key={star}
+                onClick={() => setFormData({ ...formData, rating: star })} // Update rating on click
+                aria-label={`Rate ${star} star${star > 1 ? 's' : ''}`} // Accessibility
+              >
+                {star <= formData.rating ? (
+                  <StarFilledIcon className="w-6 h-6 text-yellow-500" />
+                ) : (
+                  <Star />
+                )}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="flex justify-between space-x-4">
           {isRecording ? (

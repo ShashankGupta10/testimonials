@@ -6,4 +6,5 @@ export interface Testimonial {
     name: string
     spaceId: string
     selected?: boolean
+    rating: number
 }

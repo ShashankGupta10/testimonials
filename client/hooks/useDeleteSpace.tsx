@@ -1,17 +1,10 @@
 import { BACKEND_URL } from "@/constants/hero"
 import { useMutation } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
-import { toast } from "react-toastify"
 
 export const useDeleteSpace = () => {
-  const router = useRouter()
   return useMutation({
     mutationKey: ['deleteSpace'],
     mutationFn: deleteSpace,
-    onSuccess: () => {
-      toast.success('Space deleted successfully')
-      router.refresh()
-    }
   })
 }
 

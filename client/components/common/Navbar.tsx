@@ -4,6 +4,7 @@ import { Button } from '../ui/button'
 import { useLogout } from '@/hooks/useLogout'
 import { useRouter } from 'next/navigation'
 import LinkButton from './LinkButton'
+import Link from 'next/link'
 
 const Navbar = () => {
   const { data } = useCheckAuth()
@@ -56,7 +57,12 @@ const Navbar = () => {
                 <LinkButton href="/signup">Create free account</LinkButton>
               </>
             ) : (
-              <Button onClick={handleLogout}>Logout</Button>
+              <>
+                <Link href="/app/dashboard" className='text-gray-600 hover:text-gray-800 transition duration-100'>
+                    Dashboard
+                </Link>
+                <Button onClick={handleLogout}>Logout</Button>
+              </>
             )}
           </div>
         </div>

@@ -9,6 +9,9 @@ import LoadingAndErrorWrapper from '../common/LoadingAndErrorWrapper'
 import EmbedModal from '../embedModal'
 import EmbedFormModal from '../embedFormModal'
 import { useDeleteSpace } from '@/hooks/useDeleteSpace'
+import { toast } from 'react-toastify'
+import { Delete } from 'lucide-react'
+import DeleteSpaceModal from './DeleteSpaceModal'
 
 const Spaces = () => {
   const router = useRouter()
@@ -18,6 +21,8 @@ const Spaces = () => {
   const [embedModalOpen, setEmbedModalOpen] = useState(false)
   const [embedFormModalOpen, setEmbedFormModalOpen] = useState(false)
   const [spaceId, setSpaceId] = useState<string | null>(null)
+  const [deletingSpace, setDeletingSpace] = useState<{ id: string, name: string } | null>(null)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
   useEffect(() => {
     if (openDropdown) {
@@ -29,11 +34,33 @@ const Spaces = () => {
     setOpenDropdown(openDropdown === spaceId ? null : spaceId)
   }
 
-  const deleteSpace = async (spaceId: string) => {
-    mutate(spaceId)
+  const deleteSpaceModalOpen = async (spaceId: string) => {
+    // mutate(spaceId)
+    console.log(data);
+    setDeletingSpace({ id: spaceId, name: data?.find((space) => space.id === spaceId)?.spaceName || '' })
+    setDeleteModalOpen(true)
   }
+
+  const deleteSpace = async () => {
+    if (!deletingSpace || !deletingSpace.id) {
+      toast.error('Space ID not found')
+      return
+    }
+    mutate(deletingSpace.id, {
+      onSuccess: () => {
+        router.refresh()
+        toast.success('Space deleted successfully')
+      },
+      onError: () => {
+        toast.error('Failed to delete space')
+      }
+    })
+    setDeleteModalOpen(false)
+  }
+
   return (
     <LoadingAndErrorWrapper isLoading={isLoading} error={error}>
+      {deleteModalOpen && (<DeleteSpaceModal deleteSpace={deleteSpace} setDeleteModalOpen={setDeleteModalOpen} spaceId={deletingSpace?.name || ''} />)}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full justify-center items-center">
         {Array.isArray(data) &&
           data.length > 0 &&
@@ -112,7 +139,7 @@ const Spaces = () => {
                             </li>
                             <li
                               className="p-2 hover:bg-gray-100 cursor-pointer"
-                              onClick={() => deleteSpace(space.id)}
+                              onClick={() => deleteSpaceModalOpen(space.id)}
                             >
                               Delete Space
                             </li>

@@ -19,8 +19,11 @@ const page = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mutate(formData)
-    router.push('/login')
+    mutate(formData, {
+      onSuccess: () => {
+        router.push("/login")
+      }
+    })
   }
 
   return (
