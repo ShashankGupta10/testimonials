@@ -37,13 +37,13 @@ const DeleteSpaceModal = ({
             onClick={deleteSpace}
             className="whitespace-nowrap rounded-md bg-red-500 px-4 py-3 font-medium text-white"
           >
-            Yes, delete the user
+            Yes, delete the space
           </button>
           <button
             onClick={() => setDeleteModalOpen(false)}
             className="whitespace-nowrap rounded-md bg-gray-200 px-4 py-3 font-medium"
           >
-            Cancel, keep the user
+            Cancel, keep the space
           </button>
         </div>
       </div>
