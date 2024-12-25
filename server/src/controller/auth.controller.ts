@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../db/connect";
 import bcrypt from "bcrypt";
-import jwt, { TokenExpiredError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { loginSchema, signupSchema } from "./../types";
 
 export const signup = async (req: Request, res: Response) => {
@@ -43,11 +43,11 @@ export const login = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Logged in successfully" });
 }
 
-export const logout = async (req: Request, res: Response) => {
+export const logout = async (_: Request, res: Response) => {
     res.clearCookie("token");
     res.status(200).json({ message: "Logged out successfully" });
 }
 
-export const checkAuth = async (req: Request, res: Response) => {
+export const checkAuth = async (_: Request, res: Response) => {
     res.status(200).json({ message: "Authenticated", success: true });
 }
